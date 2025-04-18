@@ -6,7 +6,7 @@ AI cooks grenades with varying probability and timing accuracy based on their le
 
 Demonstration with perfect cooking timing.
 
-![gif](README_Images/README_EXAMPLE.gif)
+![gif](https://github.com/November75-SPT/CookingGrenadesAI/blob/772113d53ecb2be5cb12af54886d05243272091b/README_images/README_EXAMPLE.gif)
 
 ## Features
 - **Level-Based Cooking**:
