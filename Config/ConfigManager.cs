@@ -28,9 +28,9 @@ internal static class ConfigManager
         MinLevelCookingChance = configFile.Bind(
             "1. Cooking Chance",
              "Min Level Cooking Chance",
-            0.1f,
+            0.2f,
             new ConfigDescription(
-                "Cooking chance for level 1 AI (0.1 is 10% chance)",
+                "Cooking chance for level 1 AI (0.2 is 20% chance)",
                 new AcceptableValueRange<float>(0f, 1f),
                 new ConfigurationManagerAttributes { Order = 10, ShowRangeAsPercent = false }));
 

@@ -10,7 +10,7 @@ Demonstration with perfect cooking timing.
 
 ## Features
 - **Level-Based Cooking**:
-  - Low-level AI (Level 1): 10% cooking chance, ±0.3~0.5 timing error.
+  - Low-level AI (Level 1): 20% cooking chance, ±0.3~0.5 timing error.
   - High-level AI (Max Level): 50% cooking chance, ±0~0.1 timing error.
 - **Configurable Settings**:
   - Adjust cooking probability and timing error.
@@ -51,7 +51,7 @@ Demonstration with perfect cooking timing.
 
 ## Configuration
 - **Cooking Probability**:
-  - `Min Level Cooking Probability`: Chance at level 1 (default: 0.1, 10%). (Scav LVL is 1)
+  - `Min Level Cooking Probability`: Chance at level 1 (default: 0.2, 20%). (Scav LVL is 1)
   - `Max Level Cooking Probability`: Chance at max level (default: 0.5, 50%). (Scav LVL is 1)
 - **Timing Error**:
   - `Min/Max Error at Low Level`: Error range at level 1 (default: 0.3~0.5).
