@@ -23,7 +23,7 @@ namespace CookingGrenadesAI.Patches;
 public class QuickGrenadeThrowHandsControllerSpawnPatch : ModulePatch
 {
     // Stores the cooking wait time for each player to synchronize grenade throw timing
-    public static Dictionary<Player, float> CookingTimeMap = new Dictionary<Player, float>();
+    public static Dictionary<WeakReference<Player>, float> CookingTimeMap = new Dictionary<WeakReference<Player>, float>(new WeakReferenceComparer());
     protected override MethodBase GetTargetMethod()
     {
         return AccessTools.DeclaredMethod(typeof(Player.QuickGrenadeThrowHandsController), nameof(Player.QuickGrenadeThrowHandsController.Spawn));
@@ -88,7 +88,9 @@ public class QuickGrenadeThrowHandsControllerSpawnPatch : ModulePatch
         const float avgThrowAnimationTime = 0.7842f;
         float adjustedWaitTime = clampCookingWaitTime - avgThrowAnimationTime;
         __instance.WaitSeconds(adjustedWaitTime, () => { __instance.FirearmsAnimator.Animator.speed = 1f; });
-        CookingTimeMap.Add(player, clampCookingWaitTime);
+
+        var playerRef = new WeakReference<Player>(player);
+        CookingTimeMap.Add(playerRef, clampCookingWaitTime);
 
         if (IsDebugLogConfigOn())
         {
@@ -251,9 +253,24 @@ public class QuickGrenadeThrowHandsControllerClass1162OnDropGrenadeActionPatch :
         var cookingMap = QuickGrenadeThrowHandsControllerSpawnPatch.CookingTimeMap;
 
         // Apply stored cooking time and remove from map
-        if (cookingMap.Remove(player, out float cookingTime))
+        
+        var playerRef = new WeakReference<Player>(player);
+        
+        if (cookingMap.Remove(playerRef, out float cookingTime))
         {
             ___float_0 = cookingTime;
         }
+    }
+}
+public class WeakReferenceComparer : IEqualityComparer<WeakReference<Player>>
+{
+    public bool Equals(WeakReference<Player> x, WeakReference<Player> y)
+    {
+        return x.TryGetTarget(out var xTarget) && y.TryGetTarget(out var yTarget) && xTarget == yTarget;
+    }
+
+    public int GetHashCode(WeakReference<Player> obj)
+    {
+        return obj.TryGetTarget(out var target) ? target.GetHashCode() : 0;
     }
 }
