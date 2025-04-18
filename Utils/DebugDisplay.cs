@@ -25,6 +25,7 @@ namespace CookingGrenadesAI.Utils
         }
 
         public bool Enable;
+        private readonly int _uniqueWindowID = "com.November75.CookingGrenadesAI".GetHashCode();
         private Rect _windowRect = new Rect(20, 20, 500, 500); // Initial height smaller, will adjust dynamically
         private Vector2 _scrollPosition = Vector2.zero;
         private List<DisplayItem> _displayItems = new List<DisplayItem>();
@@ -90,14 +91,13 @@ namespace CookingGrenadesAI.Utils
             _instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
         private void OnGUI()
         {
             if (!Config.ConfigManager.LogToDebugWindow.Value)
             {
                 return;
             }
-            _windowRect = GUI.Window(0, _windowRect, DrawWindow, "Debug Window");
+            _windowRect = GUI.Window(_uniqueWindowID, _windowRect, DrawWindow, "Debug Window");
         }
 
         private void DrawWindow(int windowId)
